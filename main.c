@@ -28,8 +28,7 @@ void DrawProgram(void)
             .layoutDirection = CLAY_TOP_TO_BOTTOM,
         },
     }) {
-        CLAY_TEXT(CLAY_STRING("Hello, World!"), CLAY_TEXT_CONFIG({ .fontSize = 16, .textColor = { 255, 255, 255, 255 }}));
-        CLAY_TEXT(CLAY_STRING("Hello, World!"), CLAY_TEXT_CONFIG({ .fontSize = 16, .textColor = { 255, 255, 255, 255 }}));
+        CLAY_TEXT(CLAY_STRING("PomoClay"), CLAY_TEXT_CONFIG({ .fontSize = 24, .textColor = { 255, 255, 255, 255 }}));
     };
 }
 
@@ -45,15 +44,24 @@ int main(void)
         handleError, 0
     });
     Clay_Raylib_Initialize(800, 600, "PomoClay", FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
+    SetExitKey(KEY_Q);
 
     Font fonts[1];
     fonts[0] = GetFontDefault();
-    SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_BILINEAR);
     Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
+
+    Image image = LoadImage("logo.png");
 
     bool debugEnabled = false;
 
     while(!WindowShouldClose()) {
+        bool clicking = IsMouseButtonDown(MOUSE_BUTTON_LEFT);
+
+        Clay_Vector2 position = (Clay_Vector2) {
+            GetMousePosition().x, GetMousePosition().y
+        };
+        Clay_SetPointerState(position, clicking);
+
         if(IsKeyPressed(KEY_D)) {
             debugEnabled = !debugEnabled;
             Clay_SetDebugModeEnabled(debugEnabled);
