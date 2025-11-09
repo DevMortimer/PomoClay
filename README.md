@@ -1,7 +1,7 @@
 <div align="center">
 
-# PomoClay
+<img src="logo.png" alt="PomoClay Logo" width="256" height="256">
 
-<img src="logo.png" alt="PomoClay Logo">
+# PomoClay
 
 </div>
