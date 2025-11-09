@@ -20,6 +20,8 @@
 #define MAX_HEADER_FONT_SIZE 32
 #define MAX_TIMER_FONT_SIZE 80
 
+Texture2D logo;
+
 void handleError(Clay_ErrorData errorText)
 {
     printf("ERROR: %s\n", errorText.errorText.chars);
@@ -141,7 +143,10 @@ void DrawProgram(void)
                 .cornerRadius = { 12, 12, 12, 12 },
                 .backgroundColor = BACKGROUND,
                 .border = { BORDER, 4, 4, 4, 4 }
-            }) { };
+            }) {
+                const float logoSize = (16.0 * (float)GetScreenHeight()) / 100;
+                CLAY(CLAY_ID("logo"), { .layout = { .sizing = { .width = CLAY_SIZING_FIXED(logoSize), .height = CLAY_SIZING_FIXED(logoSize) } }, .image = { .imageData = &logo }}) {}
+            };
         };
     };
 }
@@ -167,6 +172,8 @@ int main(void)
     SetTextureFilter(fonts[1].texture, TEXTURE_FILTER_TRILINEAR);
     Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
     bool debugEnabled = false;
+
+    logo = LoadTexture("logo.png");
 
     while(!WindowShouldClose()) {
         SetTargetFPS(60);
