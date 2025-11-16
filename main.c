@@ -1,4 +1,3 @@
-#include "./raylib-5.5_linux_amd64/include/raylib.h"
 #define CLAY_IMPLEMENTATION
 #include "clay.h"
 #include "clay_renderer_raylib.c"
